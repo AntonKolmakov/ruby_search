@@ -5,8 +5,8 @@ Database consists of 10000000 elements
 searching...
   4.760000   0.130000   4.890000 (  4.895290)
 
-3000000 records were found
-===========
+3000000 records were found!
+
 В памяти есть 10 000 000 объектов со следующими полями:
 
 1) возраст (0..100)
