@@ -10,7 +10,7 @@ class Index
   def where(conditions = {})
     @y = []
     search_simple conditions 
-    @x
+    @x.uniq
   end
 
   private
