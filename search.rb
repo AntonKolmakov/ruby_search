@@ -1,5 +1,6 @@
 #!/usr/local/bin/ruby
 require 'benchmark'
+require 'pry'
 
 class Index
 
@@ -8,20 +9,15 @@ class Index
   end
 
   def where(conditions = {})
-    @y = []
-    search_simple conditions 
-    @x.uniq
+    search_simple conditions
   end
 
   private
 
   def search_simple(conditions)
-    @x = []
-    @y += @all_records
-    conditions.each do |field, search_value|
-      search_values_hash = search_value.inject({}) { |memo, i| memo[i] = true; memo }
-      @y.select! { |object| search_values_hash.has_key? object.send(field) }
-      @x += @y
+    result = []
+    result = @all_records.select do |object| 
+      (conditions[:age]).member?(object.age) && (conditions[:salary]).member?(object.salary)
     end
   end
 end
@@ -32,14 +28,14 @@ Person = Struct.new(:age, :salary, :height, :weight)
 def load_persons_array(n)
   persons = Array.new(n)
 
-  (0...n).each do |i|
-    persons[i] = Person.new( i % 100, i % 1000000.0, i % 200, i % 200 )
+  (0..n).each do |i|
+    persons[i] = Person.new( i % 100, rand(i % 1000000.0), i % 200, i % 200 )
   end
 
   persons
 end
 
-n = 10000000
+n = 10
 persons = load_persons_array(n)
 society = Index.new(persons)
 
